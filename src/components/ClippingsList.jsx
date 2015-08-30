@@ -5,9 +5,9 @@ class ClippingsList extends React.Component {
 
     var rows = [];
     this.props.clippings.forEach(function(clipping) {
-      rows.push(<p key={clipping.title}>{clipping.title}</p>);
+      rows.push(<p>{clipping.title}</p>);
     });
-    
+
     return (
       <p>{rows}</p>
     );

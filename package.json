@@ -18,6 +18,8 @@
   "author": "Mike Kelly",
   "license": "MIT",
   "dependencies": {
+    "json-loader": "^0.5.2",
+    "kindle-my-clippings": "^0.2.1",
     "react": "^0.13.3",
     "react-tap-event-plugin": "^0.1.7"
   },
