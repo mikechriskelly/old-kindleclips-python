@@ -1,29 +1,22 @@
 {
-  "name": "react-webpack-babel",
-  "version": "0.0.2",
+  "name": "kindle-clippings-viewer",
+  "version": "0.0.1",
   "description": "React Webpack Babel Starter Kit",
   "main": "''",
   "scripts": {
-    "build": "webpack --progress --profile --colors",
-    "dev": "webpack-dev-server --progress --profile --colors --hot"
+    "build": "webpack --config config/webpack.js --progress --profile --colors",
+    "dev": "webpack-dev-server --config config/webpack.js --progress --profile --colors --hot"
   },
   "repository": {
-    "type": "git",
-    "url": "https://github.com/alicoding/react-webpack-babel"
+    "type": "git"
   },
   "keywords": [
-    "React",
-    "Webpack",
-    "Babel",
-    "Starter",
-    "template"
+    "Kindle",
+    "Clippings",
+    "Highlights"
   ],
-  "author": "Ali Al Dallal",
+  "author": "Mike Kelly",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/alicoding/react-webpack-babel/issues"
-  },
-  "homepage": "https://github.com/alicoding/react-webpack-babel#readme",
   "dependencies": {
     "react": "^0.13.3",
     "react-tap-event-plugin": "^0.1.7"
