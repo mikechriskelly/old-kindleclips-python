@@ -1,59 +1,49 @@
 import React from 'react';
-import mui from 'material-ui';
 require('./style.css');
 
-loadJSON(function(response) {
-  var actual_JSON = JSON.parse(response);
-  console.log(actual_JSON);
-  React.render(<App clippings={actual_JSON} />, document.querySelector("#myApp"));
+loadJSON('./data/my_clippings.json', function(response) {
+  var clippings = JSON.parse(response);
+  console.log(clippings);
+  React.render(<App clippings={clippings} />, document.querySelector('#myApp'));
 });
 
 export class App extends React.Component {
   render() {
     return (
-      <div>
+      <div className="content">
         <Header/>
-        <p>My simple React Webpack Babel App</p>
-        <MyAwesomeReactComponent/>
+        <ClippingsList clippings={this.props.clippings} />
       </div>
     );
   }
 }
 
-var ThemeManager = new mui.Styles.ThemeManager();
-var RaisedButton = mui.RaisedButton;
-
-var MyAwesomeReactComponent = React.createClass({
-  childContextTypes: {
-    muiTheme: React.PropTypes.object
-  },
-  getChildContext: function() {
-    return {
-      muiTheme: ThemeManager.getCurrentTheme()
-    };
-  },
-  render: function() {
-    return (
-        <RaisedButton label="Default" />
-    );
-  }
-});
-module.exports = MyAwesomeReactComponent;
-
 export class Header extends React.Component {
   render() {
     return (
-      <h1>I'm a Header</h1>
+      <h1>Bookshelf</h1>
+    );
+  }
+}
+
+export class ClippingsList extends React.Component {
+  render() {
+    var rows = [];
+    this.props.clippings.forEach(function(clipping) {
+      rows.push(<p key={clipping.title}>{clipping.title}</p>);
+    });
+    return (
+      <p>{rows}</p>
     );
   }
 }
 
 
 
-function loadJSON(callback) {   
+function loadJSON(path, callback) {   
   var xobj = new XMLHttpRequest();
   xobj.overrideMimeType('application/json');
-  xobj.open('GET', './data/my_clippings.json', true);
+  xobj.open('GET', path, true);
   xobj.onreadystatechange = function () {
     if (xobj.readyState == 4 && xobj.status == '200') {
       callback(xobj.responseText);
