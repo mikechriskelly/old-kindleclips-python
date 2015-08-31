@@ -1,7 +1,20 @@
 import React from 'react';
 import ClippingsList from './ClippingsList';
+import SearchBar from './SearchBar';
 
 class AppRoot extends React.Component {
+
+  constructor() {
+    super();
+    this.state = {filterText: ''};
+  }
+
+  handleUserInput(filterText) {
+    this.setState({
+      filterText: filterText
+    });
+  }
+
   render() {
 
     var divStyle = {
@@ -12,8 +25,14 @@ class AppRoot extends React.Component {
 
     return (
       <div style={divStyle}>
-        <h1>Bookshelf</h1>
-        <ClippingsList clippings={this.props.clippings}/>
+        <SearchBar 
+          filterText={this.state.filterText}
+          onUserInput={this.handleUserInput.bind(this)}
+        />
+        <ClippingsList 
+          clippings={this.props.clippings}
+          filterText={this.state.filterText}
+        />
       </div>
     );
   }
