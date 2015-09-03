@@ -1,5 +1,6 @@
 import React from 'react';
 import ClippingsList from './ClippingsList';
+import RandomClip from './RandomClip';
 import SearchBar from './SearchBar';
 
 class AppRoot extends React.Component {
@@ -13,6 +14,23 @@ class AppRoot extends React.Component {
     this.setState({
       filterText: filterText
     });
+  }
+
+  setMainContent() {
+    if(this.state.filterText.length > 0) {
+      return (
+        <ClippingsList 
+          clippings={this.props.clippings}
+          filterText={this.state.filterText}
+        />
+      );
+    } else {
+      return (
+        <RandomClip
+          clippings={this.props.clippings}
+        />
+      );
+    }
   }
 
   render() {
@@ -29,10 +47,7 @@ class AppRoot extends React.Component {
           filterText={this.state.filterText}
           onUserInput={this.handleUserInput.bind(this)}
         />
-        <ClippingsList 
-          clippings={this.props.clippings}
-          filterText={this.state.filterText}
-        />
+        {this.setMainContent()}
       </div>
     );
   }
