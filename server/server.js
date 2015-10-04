@@ -18,7 +18,7 @@ app.use('/', express.static(static_path, {
   maxage: 31557600
 }));
 
-var server = app.listen(5000, function () {
+var server = app.listen(process.env.PORT || 5000, function () {
   var port = server.address().port;
   console.log('App listening on port ' + port);
 });
