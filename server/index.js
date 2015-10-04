@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var webpack = require('webpack');
+
 var app = express();
 
 var isDevelopment = process.env.NODE_ENV !== 'production';
@@ -8,7 +9,7 @@ var port = isDevelopment ? 3000 : process.env.PORT;
 var publicPath = path.resolve(__dirname, 'public');
 
 // Point to static assets
-app.use(express.static(publicPath))
+app.use(express.static(publicPath));
 
 app.get('/', function (req, res) {
   res.sendFile('index.html', {
@@ -22,7 +23,7 @@ app.listen(port, function() {
 });
 
 if (isDevelopment) {
-  var config = require('./config/webpack-dev.js');
+  var config = require('./webpack/webpack-dev.js');
   var WebpackDevServer = require('webpack-dev-server');
 
   new WebpackDevServer(webpack(config), {

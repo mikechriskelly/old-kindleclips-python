@@ -1,15 +1,16 @@
 var webpack = require('webpack');
 var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  devtool: 'source-map',
-  entry: [
-    './app/index.jsx' // Appʼs entry point
-  ],
+  entry: './app/index.jsx',
   output: {
-    path: path.join(__dirname, 'public'),
-    filename: 'bundle.js',
-    publicPath: '/public/'
+    path: './build',
+    filename: 'bundle.js'
+  },
+  devtool: 'source-map',
+  devServer: {
+    proxy: { '/api/*': 'http://localhost:5000/'}
   },
   plugins: [
     new webpack.optimize.DedupePlugin(),
@@ -18,7 +19,10 @@ module.exports = {
       compress: {
         warnings: false
       }
-    })
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Kindle Clippings Viewer'
+    })    
   ],
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -26,15 +30,13 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.jsx$/,
-        loader: 'babel',
-        include: path.join(__dirname, 'src') },
+        loader: 'babel' },
       { test: /\.js$/,
         loader: 'babel',
         exclude: /node_modules/ },
       { test: /\.css$/,
-        loader: 'style!css',
-        exclude: /(node_modules|bower_components)/,
-        include: path.join(__dirname, 'css') }
+        loader: 'style!css!',
+        exclude: /(node_modules|bower_components)/ }
     ]
   }
-}
+};

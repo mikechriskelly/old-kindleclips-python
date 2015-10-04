@@ -1,17 +1,17 @@
 var webpack = require('webpack');
 var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: [
-    'webpack-dev-server/client?http://0.0.0.0:8080', // WebpackDevServer host and port
+    'webpack-dev-server/client?http://localhost:8080', // WebpackDevServer host and port
     'webpack/hot/only-dev-server',
     './app/index.jsx' // Appʼs entry point
   ],
-  devtool: process.env.WEBPACK_DEVTOOL || 'source-map',
+  devtool: 'eval',
   output: {
-    path: path.join(__dirname, 'public'),
-    filename: 'bundle.js',
-    publicPath: '/public/'
+    path: './build',
+    filename: 'bundle.js'
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -20,7 +20,7 @@ module.exports = {
     loaders: [{
       test: /\.jsx?$/,
       exclude: /(node_modules|bower_components)/,
-      loaders: ['react-hot', 'babel'],
+      loaders: ['react-hot', 'babel']
     },
     {
       test: /\.css$/,
@@ -29,13 +29,19 @@ module.exports = {
     }]
   },
   devServer: {
-      //contentBase: "./public",
-      noInfo: true, //  --no-info option
-      hot: true,
-      inline: true
+    colors: true,
+    contentBase: './build',
+    hot: true,
+    inline: true, 
+    progress: true,
+    proxy: { '/api/*': 'http://localhost:5000/'},
+    noInfo: true  
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new HtmlWebpackPlugin({
+      title: 'Kindle Clippings Viewer'
+    })
   ]
 };
