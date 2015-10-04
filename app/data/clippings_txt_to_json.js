@@ -2,7 +2,7 @@ var kindleMyClippings = require('kindle-my-clippings');
 var fs = require('fs');
 
 var options = {
-  file: 'public/data/MyClippings.txt',
+  file: 'My\ Clippings.txt',
   format: 'json'
 };
 
