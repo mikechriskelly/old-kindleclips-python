@@ -3,6 +3,8 @@ import ClippingsList from './ClippingsList';
 import RandomClip from './RandomClip';
 import SearchBar from './SearchBar';
 
+import clippings from 'json!./../data/clippings.json';
+
 class AppRoot extends React.Component {
 
   constructor() {
@@ -20,21 +22,20 @@ class AppRoot extends React.Component {
     if(this.state.filterText.length > 0) {
       return (
         <ClippingsList 
-          clippings={this.props.clippings}
+          clippings={clippings}
           filterText={this.state.filterText}
         />
       );
     } else {
       return (
         <RandomClip
-          clippings={this.props.clippings}
+          clippings={clippings}
         />
       );
     }
   }
 
   render() {
-
     var divStyle = {
       marginLeft: 'auto',
       marginRight: 'auto',
