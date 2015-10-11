@@ -41,7 +41,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Kindle Clippings Viewer'
+      template: './app/template.html'
     })
   ]
 };

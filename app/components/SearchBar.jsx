@@ -1,9 +1,10 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 class SearchBar extends React.Component {
 
   handleChange() {
-    this.props.onUserInput(React.findDOMNode(this).value);
+    this.props.onUserInput(ReactDOM.findDOMNode(this).value);
   }
 
   render() {

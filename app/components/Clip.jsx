@@ -12,7 +12,7 @@ class Clip extends React.Component {
       color: '#a71d5d',
       fontSize: '10px',
       textAlign: 'left'
-    }
+    };
 
     return (
       <div style={divStyle}>
