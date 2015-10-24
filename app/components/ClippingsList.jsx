@@ -4,12 +4,17 @@ import Clip from './Clip';
 class ClippingsList extends React.Component {
   render() {
 
-    var rows = [];
-    var filter = this.props.filterText.toUpperCase();
+    let rows = [];
+    const filterWords = this.props.filterText.toLowerCase().split(' ');
 
     this.props.clippings.forEach(function(clip) {
-      if(clip.text.toUpperCase().indexOf(filter) === -1 && clip.title.toUpperCase().indexOf(filter) === -1) {
-        return;
+      let text = clip.text.toLowerCase();
+      let title = clip.title.toLowerCase();
+
+      for(let i = 0; i < filterWords.length; i++) {
+        if(text.indexOf(filterWords[i]) === -1 && title.indexOf(filterWords[i]) === -1) {
+          return;
+        }
       }
       rows.push(<Clip clip={clip}/>);
     });
@@ -21,5 +26,4 @@ class ClippingsList extends React.Component {
     );
   }
 }
-
 export default ClippingsList;
