@@ -4,10 +4,12 @@
   #3E4A61 navy
   #1A2639 dark blue
 */
+@import url(https://fonts.googleapis.com/css?family=Arvo);
 
 body {
   background: #D9DAD7; 
   color: #1A2639;
+  font-family: "Arvo", serif;
 }
 
 .AppRoot {
@@ -39,4 +41,12 @@ input.SearchField:focus {
   color: #C24D2C;
   font-size: 10px;
   text-align: left;
+}
+
+.RandomClip {
+  padding: 10em 0;
+}
+
+.RandomClip p {
+  font-size: 32px;
 }

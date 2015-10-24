@@ -7,8 +7,9 @@ class RandomClip extends React.Component {
     var clip = this.props.clippings[Math.floor(Math.random() * this.props.clippings.length)];
 
     return (
-      <div>
-        <Clip clip={clip}/>
+      <div className="RandomClip">
+        <p>{clip.text}</p>
+        <div className="Clip--title">{clip.title}</div>
       </div>
     );
   }
