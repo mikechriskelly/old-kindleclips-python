@@ -39,7 +39,7 @@ class AppRoot extends React.Component {
     return (
       <div className="AppRoot">
         <DebounceInput
-          className="u-full-width"
+          className="u-full-width SearchField"
           debounceTimeout={300}
           minLength={2}
           onChange={filterText => this.setState({filterText})}
