@@ -1,7 +1,7 @@
 import React from 'react';
 import ClippingsList from './ClippingsList';
 import RandomClip from './RandomClip';
-import SearchBar from './SearchBar';
+import DebounceInput from 'react-debounce-input';
 
 import clippings from 'json!./../data/clippings.json';
 
@@ -36,17 +36,14 @@ class AppRoot extends React.Component {
   }
 
   render() {
-    var divStyle = {
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      maxWidth: '768px'
-    };
-
     return (
-      <div style={divStyle}>
-        <SearchBar 
-          filterText={this.state.filterText}
-          onUserInput={this.handleUserInput.bind(this)}
+      <div className="AppRoot">
+        <DebounceInput
+          className="u-full-width"
+          debounceTimeout={300}
+          minLength={2}
+          onChange={filterText => this.setState({filterText})}
+          placeholder="Search..."
         />
         {this.setMainContent()}
       </div>
