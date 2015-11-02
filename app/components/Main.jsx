@@ -14,11 +14,14 @@ class Main extends React.Component {
 
   componentDidMount() {
     ClippingsStore.listen(this.onChange);
-    ClippingsStore.fetchClippings();
   }
 
   componentWillUnmount() {
     ClippingsStore.unlisten(this.onChange);
+  }
+
+  onChange(state) {
+    this.setState(state);
   }
 
   handleUserInput(filterText) {
@@ -28,23 +31,28 @@ class Main extends React.Component {
   }
 
   setMainContent() {
-    if(this.state.filterText.length > 0) {
-      return (
-        <ClippingsList 
-          clippings={this.state.clippings}
-          filterText={this.state.filterText}
-        />
-      );
-    } else {
-      return (
-        <RandomClip
-          clippings={this.state.clippings}
-        />
-      );
+    if(this.state.clippings.length > 0) {
+      if(this.state.filterText.length > 0) {
+        return (
+          <ClippingsList 
+            clippings={this.state.clippings}
+            filterText={this.state.filterText}
+          />
+        );
+      } else {
+        return (
+          <RandomClip
+            clippings={this.state.clippings}
+          />
+        );
+      }
     }
   }
 
   render() {
+
+    DropboxActions.connect();
+    
     return (
       <div className="Main">
         <DebounceInput

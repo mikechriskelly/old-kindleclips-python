@@ -1,21 +1,20 @@
 import alt from '../alt';
 import DropboxActions from '../actions/DropboxActions';
 
-import clippings from 'json!./../data/clippings.json';
-
 class ClippingsStore {
   constructor() {
-    this.clippings = clippings;
+    this.clippings = [];
     this.filterText = '';
     this.bindListeners({
-      //handleFetchClippings: DropboxActions.fetchClippings() 
+      updateClippings: DropboxActions.UPDATE_CLIPPINGS 
     });
   }
 
-  handleFetchClippings() {
-    this.clippings = [];
+  updateClippings(clippings) {
+    this.clippings = clippings;
+    console.log(clippings);
+    this.emitChange();
   }
 }
 
 export default alt.createStore(ClippingsStore);
-

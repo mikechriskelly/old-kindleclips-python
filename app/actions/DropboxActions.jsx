@@ -1,24 +1,35 @@
 import alt from '../alt';
+import clippings from 'json!./../data/clippings.json';
 
 class DropboxActions {
 
-  fetchClippings() {
-    var client = new Dropbox.Client({ key: 'ynrpnmbtz8t3bpy' });
+  constructor() {
+    this.client = null;
+  }
 
-    client.authenticate(function (error, client) {
+  connect() {
+    var Client = new Dropbox.Client({ key: 'ynrpnmbtz8t3bpy' });
+
+    Client.authenticate(function (error, response) {
       if(error) {
         console.error(error);
       }
 
-      client.onError.addListener(function (error) {
+      Client.onError.addListener(function (error) {
         if(window.console) {
           console.error(error);
         }
       });
-      console.log(client);
-      
-      client.getAccountInfo(function(error, accountInfo) { console.log(accountInfo); });
-    });
+
+      console.log(response);
+      response.getAccountInfo(function(error, accountInfo) { console.log(accountInfo); });
+
+      this.actions.updateClippings(response);
+    }.bind(this));
+  }
+
+  updateClippings(clippings) {
+    this.dispatch(clippings);
   }
 }
 
