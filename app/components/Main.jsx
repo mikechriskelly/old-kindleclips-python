@@ -32,6 +32,20 @@ class Main extends React.Component {
     });
   }
 
+  setInputBar() {
+    if(this.state.clippings.length > 0) {
+      return (
+        <DebounceInput
+          className="u-full-width SearchField"
+          debounceTimeout={300}
+          minLength={2}
+          onChange={filterText => this.setState({filterText})}
+          placeholder="Search..."
+        />
+      );
+    }
+  }
+
   setMainContent() {
     if(this.state.clippings.length > 0) {
       if(this.state.filterText.length > 0) {
@@ -48,19 +62,20 @@ class Main extends React.Component {
           />
         );
       }
+    } else {
+      return (
+        <div>
+          <h4>To view your Kindle Clips...</h4>
+          <p>Allow this app to connect to your Dropbox folder. Then add 'My Clippings.txt' to Dropbbox/Apps/Kindle Clippings Viewer</p>
+        </div>
+      );
     }
   }
 
   render() {
     return (
       <div className="Main">
-        <DebounceInput
-          className="u-full-width SearchField"
-          debounceTimeout={300}
-          minLength={2}
-          onChange={filterText => this.setState({filterText})}
-          placeholder="Search..."
-        />
+        
         {this.setMainContent()}
       </div>
     );
