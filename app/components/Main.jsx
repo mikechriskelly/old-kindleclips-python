@@ -66,7 +66,7 @@ class Main extends React.Component {
       return (
         <div>
           <h4>To view your Kindle Clips...</h4>
-          <p>Allow this app to connect to your Dropbox folder. Then add 'My Clippings.txt' to Dropbbox/Apps/Kindle Clippings Viewer</p>
+          <p>Allow this app to connect to your Dropbox folder. Then add 'My Clippings.txt' to Dropbbox/Apps/Kindle Clippings Viewer. You may need to refresh the page.</p>
         </div>
       );
     }
@@ -75,7 +75,7 @@ class Main extends React.Component {
   render() {
     return (
       <div className="Main">
-        
+        {this.setInputBar()}
         {this.setMainContent()}
       </div>
     );
