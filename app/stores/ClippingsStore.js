@@ -6,14 +6,17 @@ class ClippingsStore {
     this.clippings = [];
     this.filterText = '';
     this.bindListeners({
-      updateClippings: DropboxActions.UPDATE_CLIPPINGS 
+      updateClippings: DropboxActions.FETCH_CLIPPINGS 
     });
   }
 
   updateClippings(clippings) {
     this.clippings = clippings;
-    console.log(clippings);
-    this.emitChange();
+    //this.emitChange();
+  }
+
+  getClippings() {
+    return this.clippings;
   }
 }
 

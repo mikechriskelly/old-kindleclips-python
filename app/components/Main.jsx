@@ -9,10 +9,12 @@ class Main extends React.Component {
 
   constructor() {
     super();
+    this.onChange = this.onChange.bind(this);
     this.state = ClippingsStore.getState();
   }
 
   componentDidMount() {
+    DropboxActions.connect();
     ClippingsStore.listen(this.onChange);
   }
 
@@ -50,9 +52,6 @@ class Main extends React.Component {
   }
 
   render() {
-
-    DropboxActions.connect();
-    
     return (
       <div className="Main">
         <DebounceInput
