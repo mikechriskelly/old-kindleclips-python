@@ -1,6 +1,4 @@
 import alt from '../alt';
-import clippings from 'json!./../data/clippings.json';
-
 
 class DropboxActions {
 
