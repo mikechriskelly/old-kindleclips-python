@@ -20,8 +20,8 @@ module.exports = {
       }
     }),
     new HtmlWebpackPlugin({
-      title: 'Kindle Clippings Viewer'
-    })    
+      template: './app/template.html'
+    }) 
   ],
   resolve: {
     extensions: ['', '.js', '.jsx']
