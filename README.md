@@ -1,16 +1,15 @@
 # kindle-clippings-viewer
 Simple app to view and filter highlights from Kindle reader
 
-### To run
+### Setup
+npm install 
+virtualenv venv
+source venv/bin/activate
+pip install -r requirements.txt
+npm run build
 
-You can simply run webpack build using this command: 
+### Dev Run
+npm run dev
 
-```
-> $ npm run build
-```
-
-If you want to run with webpack-dev-server simply run this command: 
-
-```
-> $ npm run dev
-```
+### Production
+npm start
