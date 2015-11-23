@@ -4,7 +4,7 @@
   "description": "Simple viewer for Kindle highlights",
   "main": "server/server.js",
   "scripts": {
-    "start": "python server.py",
+    "start": "python ./server/server.py",
     "build": "webpack --progress --colors --config ./webpack/webpack-prod.js",
     "dev": "nodemon server/server.js --watch server & webpack-dev-server --config ./webpack/webpack-dev.js",
     "postinstall": "npm run build"
