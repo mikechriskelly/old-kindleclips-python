@@ -6,7 +6,7 @@
   "scripts": {
     "start": "python ./server/server.py",
     "build": "webpack --progress --colors --config ./webpack/webpack-prod.js",
-    "dev": "nodemon server/server.js --watch server & webpack-dev-server --config ./webpack/webpack-dev.js",
+    "dev": "python ./server/server.py & webpack-dev-server --config ./webpack/webpack-dev.js",
     "postinstall": "npm run build"
   },
   "repository": {
