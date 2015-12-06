@@ -1,7 +1,7 @@
 import React from 'react';
 import Clip from './Clip';
 
-class ClippingsList extends React.Component {
+class ClipList extends React.Component {
   render() {
 
     let rows = [];
@@ -26,4 +26,4 @@ class ClippingsList extends React.Component {
     );
   }
 }
-export default ClippingsList;
+export default ClipList;

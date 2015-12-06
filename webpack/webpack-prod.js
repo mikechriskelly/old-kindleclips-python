@@ -8,9 +8,6 @@ module.exports = {
     filename: 'bundle.js'
   },
   devtool: 'source-map',
-  devServer: {
-    proxy: { '/api/*': 'http://localhost:5000/'}
-  },
   plugins: [
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({

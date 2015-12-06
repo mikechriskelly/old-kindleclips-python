@@ -1,20 +1,36 @@
 import alt from '../alt';
-import DropboxActions from '../actions/DropboxActions';
+import ClippingsActions from '../actions/ClippingsActions';
 
 class ClippingsStore {
   constructor() {
+    this.bindActions(ClippingsActions);
+
+    this.loadingClippings = false;
     this.clippings = [];
     this.filterText = '';
-    this.bindListeners({
-      updateClippings: DropboxActions.FETCH_CLIPPINGS 
-    });
   }
 
+  onRequestClippings() {
+    this.loadingClippings = true;
+  }
+
+  onReceiveClippings(rawClippings) {
+    this._init(rawClippings);
+    this.loadingClippings = false;
+  }
+
+  _init(rawClippings) {
+    this.clippings = rawClippings;
+  }
+
+
+  // OLD. REMOVE?
   updateClippings(clippings) {
     this.clippings = clippings;
     //this.emitChange();
   }
 
+  // OLD. REMOVE?
   getClippings() {
     return this.clippings;
   }

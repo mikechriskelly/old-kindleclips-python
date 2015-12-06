@@ -34,7 +34,7 @@ module.exports = {
     hot: true,
     inline: true, 
     progress: true,
-    proxy: { '/api/*': 'http://localhost:5000/'},
+    proxy: { '/api*': 'http://localhost:8000'},
     noInfo: true  
   },
   plugins: [
