@@ -2,12 +2,14 @@ import 'whatwg-fetch';
 
 class ClippingsAPI {
   static requestClippings() {
-    console.dir(fetch);
-    return fetch('/api')
+    return fetch('/api', {
+    	credentials: 'same-origin'
+    })
       .then(function(response) {
-        console.log(response);
-        return response.text();
-      })
+        return response.text()
+  	   }).then(function(body) {
+    	console.log(body)
+       });
   }
 }
 
