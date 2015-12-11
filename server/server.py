@@ -2,6 +2,7 @@ import os
 import cherrypy
 from dropbox import DropboxOAuth2Flow
 import dropbox
+import parse
 
 BUILD_DIR = os.path.join(os.path.abspath('.'), u'build')
 DROPBOX_KEY = os.environ.get('DROPBOX_KEY')
@@ -55,9 +56,11 @@ class App(object):
     # Create dropbox client
     # Read My Clippings from DB
     # Parse and return JSON
+    # parse.parse_clips(my_clippings)
+    dbx = dropbox.Dropbox('FgXq-pbmMH4AAAAAAAAHL_Z4qYuta45aCxuZ8gYKFehdwVHz2HlrEqKoFyrl64gY')
+    meta, res = dbx.files_download('/My Clippings.txt')
+    return parse.parse_clips(res)
 
-    dbx = dropbox.Dropbox(sess['access_token'])
-    return str(dbx.users_get_current_account())
 
   @cherrypy.expose
   def gettopics(self):
