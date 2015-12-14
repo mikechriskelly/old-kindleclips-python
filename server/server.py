@@ -7,10 +7,12 @@ import parse
 BUILD_DIR = os.path.join(os.path.abspath('.'), u'build')
 DROPBOX_KEY = os.environ.get('DROPBOX_KEY')
 DROPBOX_SECRET = os.environ.get('DROPBOX_SECRET')
+MY_CLIPPINGS = '/My Clippings.txt'
+DEV_TOKEN = 'FgXq-pbmMH4AAAAAAAAHL_Z4qYuta45aCxuZ8gYKFehdwVHz2HlrEqKoFyrl64gY'
 
 class Root:
   def get_dropbox_auth_flow(self):
-    redirect_uri = cherrypy.url('/')
+    redirect_uri = cherrypy.url('/setup')
     web_app_session = cherrypy.session
     
     return DropboxOAuth2Flow(
@@ -20,25 +22,54 @@ class Root:
         web_app_session,
         'dropbox-auth-csrf-token')
 
-  @cherrypy.expose
-  def index(self, **params):
+  def file_in_dropbox(self, filename):
     sess = cherrypy.session
-    if not sess.has_key('access_token'):
-      try:
-        # Get access token from last auth flow
-        sess['access_token'], sess['user_id'], sess['url_state'] = \
-          self.get_dropbox_auth_flow().finish(cherrypy.request.params)
-      except:
-        # Start the auth flow again.
-        raise cherrypy.HTTPRedirect('login')
-    
+    dbx = dropbox.Dropbox(DEV_TOKEN)
+    try:
+      meta = dbx.files_get_metadata(filename)
+      return True
+    except:
+      return False
+
+  @cherrypy.expose
+  def index(self):
     return open(os.path.join(BUILD_DIR, u'index.html'))
-    
+
   @cherrypy.expose
   def login(self):
     cherrypy.session.regenerate()
     authorize_url = self.get_dropbox_auth_flow().start()
     raise cherrypy.HTTPRedirect(authorize_url)
+
+  @cherrypy.expose
+  def setup(self, **params):
+    sess = cherrypy.session
+    if not sess.has_key('access_token'):
+      try:
+        # Get access token from auth flow
+        sess['access_token'], sess['user_id'], sess['url_state'] = \
+          self.get_dropbox_auth_flow().finish(cherrypy.request.params)
+      except:
+        # Start over. Redirect to landing page
+        raise cherrypy.HTTPRedirect('/')
+      
+      # Redirect to self to clear query parameters
+      raise cherrypy.HTTPRedirect('/setup')
+
+    if self.file_in_dropbox(MY_CLIPPINGS):
+      # Can skip to main app
+      raise cherrypy.HTTPRedirect('/clips')
+
+    return open(os.path.join(BUILD_DIR, u'index.html'))
+
+  @cherrypy.expose
+  def clips(self):
+    sess = cherrypy.session
+    if not sess.has_key('access_token'):
+      raise cherrypy.HTTPRedirect('/')
+    
+    return open(os.path.join(BUILD_DIR, u'index.html'))
+
 
 class API:
   @cherrypy.expose
@@ -54,13 +85,8 @@ class API:
   @cherrypy.tools.json_out()
   def clips(self):
     sess = cherrypy.session
-    # Create dropbox client
-    # Read My Clippings from DB
-    # Parse and return JSON
-    # parse.parse_clips(my_clippings)
-    dbx = dropbox.Dropbox('FgXq-pbmMH4AAAAAAAAHL_Z4qYuta45aCxuZ8gYKFehdwVHz2HlrEqKoFyrl64gY')
-    meta, res = dbx.files_download('/My Clippings.txt')
-
+    dbx = dropbox.Dropbox(DEV_TOKEN)
+    meta, res = dbx.files_download(MY_CLIPPINGS)
     return parse.parse_clips(res.content)
 
   @cherrypy.expose
