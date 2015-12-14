@@ -52,6 +52,7 @@ class App(object):
     return str(sess['counter'])
 
   @cherrypy.expose
+  @cherrypy.tools.json_out()
   def getclips(self):
     sess = cherrypy.session
     # Create dropbox client

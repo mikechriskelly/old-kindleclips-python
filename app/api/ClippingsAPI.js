@@ -2,14 +2,16 @@ import 'whatwg-fetch';
 
 class ClippingsAPI {
   static requestClippings() {
-    return fetch('/api', {
-    	credentials: 'same-origin'
+    return fetch('/getclips', {
+      credentials: 'same-origin'
     })
-      .then(function(response) {
-        return response.text()
-  	   }).then(function(body) {
-    	console.log(body)
-       });
+    .then(response => {
+      return response.json();
+     }).then(json => {
+      return JSON.parse(json);
+     }).catch(error => {
+      console.log('Parsing failed', error);
+     });
   }
 }
 
