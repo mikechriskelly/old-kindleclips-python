@@ -32,7 +32,6 @@ class App(object):
   def index(self, **params):
     sess = cherrypy.session
     if not sess.has_key('access_token'):
-      sess['counter'] = 0
       try:
         # Get access token from last auth flow
         sess['access_token'], sess['user_id'], sess['url_state'] = \
@@ -41,13 +40,15 @@ class App(object):
         # Start the auth flow again.
         raise cherrypy.HTTPRedirect('login')
     
-    sess['counter'] += 1
-    #return str(sess['counter'])
     return open(os.path.join(BUILD_DIR, u'index.html'))
 
   @cherrypy.expose
   def api(self):
     sess = cherrypy.session
+    try:
+      sess['counter'] += 1
+    except:
+      sess['counter'] = 0
     return str(sess['counter'])
 
   @cherrypy.expose
@@ -59,8 +60,8 @@ class App(object):
     # parse.parse_clips(my_clippings)
     dbx = dropbox.Dropbox('FgXq-pbmMH4AAAAAAAAHL_Z4qYuta45aCxuZ8gYKFehdwVHz2HlrEqKoFyrl64gY')
     meta, res = dbx.files_download('/My Clippings.txt')
-    return parse.parse_clips(res)
-
+    #return parse.parse_clips(res)
+    return res.content
 
   @cherrypy.expose
   def gettopics(self):

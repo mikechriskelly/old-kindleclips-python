@@ -6,7 +6,9 @@
   "scripts": {
     "start": "python ./server/server.py",
     "build": "webpack --progress --colors --config ./webpack/webpack-prod.js",
-    "dev": "python ./server/server.py & webpack-dev-server --config ./webpack/webpack-dev.js",
+    "dev": "npm run dev-webpack & npm run dev-server",
+    "dev-webpack": "webpack --progress --config ./webpack/webpack-dev.js --watch & PID=$!",
+    "dev-server": "python ./server/server.py && kill $PID",
     "postinstall": "npm run build"
   },
   "repository": {
