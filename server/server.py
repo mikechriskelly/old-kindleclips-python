@@ -8,8 +8,7 @@ BUILD_DIR = os.path.join(os.path.abspath('.'), u'build')
 DROPBOX_KEY = os.environ.get('DROPBOX_KEY')
 DROPBOX_SECRET = os.environ.get('DROPBOX_SECRET')
 
-
-class App(object):
+class Root:
   def get_dropbox_auth_flow(self):
     redirect_uri = cherrypy.url('/')
     web_app_session = cherrypy.session
@@ -20,13 +19,6 @@ class App(object):
         redirect_uri, 
         web_app_session,
         'dropbox-auth-csrf-token')
-
-  @cherrypy.expose
-  def login(self):
-    cherrypy.session.regenerate()
-
-    authorize_url = self.get_dropbox_auth_flow().start()
-    raise cherrypy.HTTPRedirect(authorize_url)
 
   @cherrypy.expose
   def index(self, **params):
@@ -41,9 +33,16 @@ class App(object):
         raise cherrypy.HTTPRedirect('login')
     
     return open(os.path.join(BUILD_DIR, u'index.html'))
-
+    
   @cherrypy.expose
-  def api(self):
+  def login(self):
+    cherrypy.session.regenerate()
+    authorize_url = self.get_dropbox_auth_flow().start()
+    raise cherrypy.HTTPRedirect(authorize_url)
+
+class API:
+  @cherrypy.expose
+  def count(self):
     sess = cherrypy.session
     try:
       sess['counter'] += 1
@@ -53,7 +52,7 @@ class App(object):
 
   @cherrypy.expose
   @cherrypy.tools.json_out()
-  def getclips(self):
+  def clips(self):
     sess = cherrypy.session
     # Create dropbox client
     # Read My Clippings from DB
@@ -65,16 +64,18 @@ class App(object):
     return parse.parse_clips(res.content)
 
   @cherrypy.expose
-  def gettopics(self):
+  def topics(self):
     sess = cherrypy.session
     # Create dropbox client
     # Read My Clippings from DB
     # Run LDA processing
     # Return topics
-    return 'OK'   
+    return 'TODO'   
 
+def main():
+  root = Root()
+  root.api = API()
 
-if __name__ == '__main__':
   conf = {
     '/': {
       'tools.staticdir.on': True,
@@ -87,8 +88,9 @@ if __name__ == '__main__':
 
   cherrypy.config.update({'server.socket_host': '0.0.0.0',})
   cherrypy.config.update({'server.socket_port': int(os.environ.get('PORT', '8000')),})
-
-  cherrypy.tree.mount(App(), '/', conf)
-
+  cherrypy.tree.mount(root, '/', conf)
   cherrypy.engine.start()
   cherrypy.engine.block()
+
+if __name__ == '__main__':
+  main()

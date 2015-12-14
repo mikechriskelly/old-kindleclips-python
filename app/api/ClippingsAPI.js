@@ -2,7 +2,7 @@ import 'whatwg-fetch';
 
 class ClippingsAPI {
   static requestClippings() {
-    return fetch('/getclips', {
+    return fetch('/api/clips', {
       credentials: 'same-origin'
     })
     .then(response => {
