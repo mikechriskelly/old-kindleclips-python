@@ -5,7 +5,8 @@
   "main": "server/server.js",
   "scripts": {
     "start": "python ./server/server.py",
-    "build": "rm -r ./build && webpack --progress --colors --config ./webpack/webpack-prod.js",
+    "build": "webpack --progress --colors --config ./webpack/webpack-prod.js",
+    "clean": "rm -r ./build",
     "dev": "npm run dev-webpack & npm run dev-server",
     "dev-webpack": "webpack --progress --config ./webpack/webpack-dev.js --watch & PID=$!",
     "dev-server": "python ./server/server.py && kill $PID",
