@@ -1,3 +1,5 @@
+import json
+
 def parse_clips(my_clippings):
 	clip_lst = []
 	# split the long string based on lines
@@ -17,4 +19,4 @@ def parse_clips(my_clippings):
 			clip_lst.append(dictionary) 
 		except:
 			continue
-	return clip_lst
+	return json.dumps(clip_lst, ensure_ascii=False)

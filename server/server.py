@@ -60,8 +60,8 @@ class App(object):
     # parse.parse_clips(my_clippings)
     dbx = dropbox.Dropbox('FgXq-pbmMH4AAAAAAAAHL_Z4qYuta45aCxuZ8gYKFehdwVHz2HlrEqKoFyrl64gY')
     meta, res = dbx.files_download('/My Clippings.txt')
-    #return parse.parse_clips(res)
-    return res.content
+
+    return parse.parse_clips(res.content)
 
   @cherrypy.expose
   def gettopics(self):
