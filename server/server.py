@@ -8,7 +8,6 @@ BUILD_DIR = os.path.join(os.path.abspath('.'), u'build')
 DROPBOX_KEY = os.environ.get('DROPBOX_KEY')
 DROPBOX_SECRET = os.environ.get('DROPBOX_SECRET')
 MY_CLIPPINGS = '/My Clippings.txt'
-DEV_TOKEN = 'FgXq-pbmMH4AAAAAAAAHL_Z4qYuta45aCxuZ8gYKFehdwVHz2HlrEqKoFyrl64gY'
 
 class Root:
   def get_dropbox_auth_flow(self):
@@ -24,8 +23,8 @@ class Root:
 
   def file_in_dropbox(self, filename):
     sess = cherrypy.session
-    dbx = dropbox.Dropbox(DEV_TOKEN)
     try:
+      dbx = dropbox.Dropbox(sess['access_token'])
       meta = dbx.files_get_metadata(filename)
       return True
     except:
@@ -85,7 +84,7 @@ class API:
   @cherrypy.tools.json_out()
   def clips(self):
     sess = cherrypy.session
-    dbx = dropbox.Dropbox(DEV_TOKEN)
+    dbx = dropbox.Dropbox(sess['access_token'])
     meta, res = dbx.files_download(MY_CLIPPINGS)
     return parse.parse_clips(res.content)
 
