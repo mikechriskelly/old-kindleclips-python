@@ -50,3 +50,11 @@ input.SearchField:focus {
 .RandomClip p {
   font-size: 32px;
 }
+
+.todo--next {
+  color: #BCBCBC;
+}
+
+.todo--done {
+  color: #39AA51;
+}

@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import AppRoot from './components/AppRoot';
 import Main from './components/Main';
+import Setup from './components/Setup';
+
 import { Router, Route, IndexRoute } from 'react-router';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 
@@ -16,7 +18,9 @@ let history = createBrowserHistory({
 ReactDOM.render((
   <Router history={history}>
     <Route path='/' component={AppRoot}>
-      <IndexRoute component={Main} />
+      <IndexRoute component={Setup} step='1' />
+      <Route path='setup' component={Setup} step='2' />
+      <Route path='clips' component={Main} />
     </Route>
   </Router>
 ), document.getElementById('App'));

@@ -62,13 +62,6 @@ class Main extends React.Component {
           />
         );
       }
-    } else {
-      return (
-        <div>
-          <h4>To view your Kindle Clips...</h4>
-          <p>Allow this app to connect to your Dropbox folder. Then add 'My Clippings.txt' to Dropbbox/Apps/Kindle Clippings Viewer. You may need to refresh the page.</p>
-        </div>
-      );
     }
   }
 

@@ -22,18 +22,6 @@ class ClippingsStore {
   _init(rawClippings) {
     this.clippings = rawClippings;
   }
-
-
-  // OLD. REMOVE?
-  updateClippings(clippings) {
-    this.clippings = clippings;
-    //this.emitChange();
-  }
-
-  // OLD. REMOVE?
-  getClippings() {
-    return this.clippings;
-  }
 }
 
 export default alt.createStore(ClippingsStore);

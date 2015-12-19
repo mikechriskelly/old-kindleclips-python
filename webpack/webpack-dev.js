@@ -3,11 +3,7 @@ var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: [
-    'webpack-dev-server/client?http://localhost:8080', // WebpackDevServer host and port
-    'webpack/hot/only-dev-server',
-    './app/index.jsx' // Appʼs entry point
-  ],
+  entry: './app/index.jsx',
   devtool: 'eval',
   output: {
     path: './build',
@@ -31,14 +27,12 @@ module.exports = {
   devServer: {
     colors: true,
     contentBase: './build',
-    hot: true,
+    hot: false,
     inline: true, 
     progress: true,
-    proxy: { '/api*': 'http://localhost:8000'},
     noInfo: true  
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({
       template: './app/template.html'
