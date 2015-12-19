@@ -1,13 +1,14 @@
-# gensim tutorial from radimrehurek.com
-
 from gensim import corpora, models, similarities
-from pprint import pprint   # pretty-printer
+from pprint import pprint
 from gensim.parsing import PorterStemmer
 import codecs
 import re
 
+# read my clippings file
+### read my clippings data from res.content
 with codecs.open("My Clippings.txt", encoding='utf-8') as open_clip:
 	my_clip = open_clip.read()
+
 # split the long string into lines
 mc = my_clip.split("\n")
 for i in range(len(mc)):
@@ -18,12 +19,10 @@ for i in range(len(mc)):
 # remove content with slicing - low:high:stride
 documents = mc[3:len(mc):5]
 
+# store stopwords from text file into a var
 with codecs.open("stopwords_long", "r", encoding = 'utf-8') as open_stop:
 	stops = open_stop.read()
 stoplist = set(stops.split("\n"))
-
-# stops = ' '.join(stopwords.words('english'))
-# stoplist = set(stops.split())
  
 # list comprehension to convert to lowercase, split docs into a list of words
 # and remove stop words
@@ -31,7 +30,7 @@ texts = [[word for word in document.lower().split()
 	if word not in stoplist]
         for document in documents]
 
-# Thanks, Internet
+# Porter method for stemming words
 global_stemmer = PorterStemmer()
 class StemmingHelper(object):
     """
@@ -80,21 +79,17 @@ texts_stem = [ [StemmingHelper.stem(word) for word in text
 	if word != text]
 		for text in texts]
 
-# this is a gensim dict that gives each term a unique integer id
+# create gensim dict that gives each term a unique integer id
 dictionary = corpora.Dictionary(texts_stem) 
-# dictionary.save('/tmp/deerwester.dict') # store the dictionary, for future reference
 
 # this will make a large list that consists of sublists. each sublist is a list of tuples
 # The tuples represent the unique word id from above and a freq. count
 corpus = [dictionary.doc2bow(text) for text in texts_stem]
 
-# import gensim if something missing
+# run lda on the corpus
 n = 20
 lda = models.LdaModel(corpus, id2word=dictionary, num_topics=n)
 pprint(lda.print_topics(num_topics=n, num_words = 5))
-#hdp = models.HdpModel(corpus, id2word=dictionary)
-#pprint(hdp.print_topics())
-
 
 # create a new list of the highest topic probabilities for each document
 doc_topics = []
@@ -103,28 +98,3 @@ doc_topics = []
 # another way
 for i in range(len(corpus)):
 	doc_topics.append(lda[corpus[i]])
-
-
-
-
-
-
-
-"""
-# The lda library may not be appropriate, there is no pre-processing available
-
-import numpy as np
-import lda
-
-## how to make a term document matrix??
-
-model = lda.LDA(n_topics=20, n_iter=1500, random_state=1)
-
-model.fit(xlda)
-
-topic_word = model.topic_word_ # This is an numpy array with # of rows = n_topics and
-# number of cols = # of terms. My clippings should be n_topics x ~7300 terms
-
-doc_topic = model.doc_topic_ # numpy array with # rows = # of documents and # of cols
-# are = n_topics. My Clippings should be (641(638?) x n_topics)
-"""
