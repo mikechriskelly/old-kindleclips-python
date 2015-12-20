@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
   entry: './app/index.jsx',
@@ -16,9 +17,10 @@ module.exports = {
         warnings: false
       }
     }),
+    new ExtractTextPlugin('styles.css'),
     new HtmlWebpackPlugin({
       template: './app/template.html'
-    }) 
+    })
   ],
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -30,8 +32,8 @@ module.exports = {
       { test: /\.js$/,
         loader: 'babel',
         exclude: /node_modules/ },
-      { test: /\.css$/,
-        loader: 'style!css!',
+      { test: /\.css$/, 
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader'),
         exclude: /(node_modules|bower_components)/ }
     ]
   }
