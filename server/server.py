@@ -11,7 +11,15 @@ MY_CLIPPINGS = '/My Clippings.txt'
 
 class Root:
   def get_dropbox_auth_flow(self):
-    redirect_uri = cherrypy.url('/setup')
+
+    if os.environ.get('PORT'):
+      # Use HTTPS redirect URL in production
+      base = 'https://kindleclips.herokuapp.com'
+    else:
+      # Standard HTTP for localhost
+      base = None
+    
+    redirect_uri = cherrypy.url('/setup', base=base)
     web_app_session = cherrypy.session
     
     return DropboxOAuth2Flow(
