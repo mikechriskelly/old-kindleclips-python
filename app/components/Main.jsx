@@ -68,7 +68,14 @@ class Main extends React.Component {
   render() {
     return (
       <div className="Main">
-        {this.setInputBar()}
+        <div className="Header row">
+          <div className="three columns">
+            <button>Browse</button>
+          </div>
+          <div className="nine columns">
+            {this.setInputBar()}
+          </div>
+        </div>
         {this.setMainContent()}
       </div>
     );
