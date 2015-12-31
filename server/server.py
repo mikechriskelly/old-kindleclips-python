@@ -93,8 +93,22 @@ class API:
   def clips(self):
     sess = cherrypy.session
     dbx = dropbox.Dropbox(sess['access_token'])
+
+    try:
+      meta, res = dbx.files_download('/My Clippings.json')
+      return res.content
+    except:
+      meta, res = dbx.files_download(MY_CLIPPINGS)
+      parsed_clips = parse.parse_clips(res.content)
+      dbx.files_upload(parsed_clips, '/My Clippings.json')
+      return parsed_clips
+
+  @cherrypy.expose
+  def meta(self):
+    sess = cherrypy.session
+    dbx = dropbox.Dropbox(sess['access_token'])
     meta, res = dbx.files_download(MY_CLIPPINGS)
-    return parse.parse_clips(res.content)
+    return meta
 
   @cherrypy.expose
   def topics(self):
