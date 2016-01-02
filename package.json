@@ -34,6 +34,7 @@
     "react": "^0.14.0",
     "react-debounce-input": "^1.2.0",
     "react-dom": "^0.14.0",
+    "react-loading-indicator": "^0.1.6",
     "react-router": "^1.0.0-rc1",
     "react-tap-event-plugin": "^0.1.7",
     "style-loader": "^0.12.3",
@@ -41,6 +42,7 @@
     "whatwg-fetch": "^0.10.1"
   },
   "devDependencies": {
+    "copy-webpack-plugin": "^0.3.3",
     "eslint": "^1.5.0",
     "fbjs": "^0.2.1",
     "nodemon": "^1.7.1",

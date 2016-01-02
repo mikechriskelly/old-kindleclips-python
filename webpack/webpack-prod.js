@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './app/index.jsx',
@@ -20,7 +21,10 @@ module.exports = {
     new ExtractTextPlugin('styles.css'),
     new HtmlWebpackPlugin({
       template: './app/template.html'
-    })
+    }),
+    new CopyWebpackPlugin([
+      { from: 'app/assets', to: 'assets' }
+    ])
   ],
   resolve: {
     extensions: ['', '.js', '.jsx']

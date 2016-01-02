@@ -4,6 +4,7 @@ import RandomClip from './RandomClip';
 import DebounceInput from 'react-debounce-input';
 import ClippingsActions from '../actions/ClippingsActions';
 import ClippingsStore from '../stores/ClippingsStore';
+import LoadingIndicator from 'react-loading-indicator';
 
 class Main extends React.Component {
 
@@ -32,16 +33,29 @@ class Main extends React.Component {
     });
   }
 
-  setInputBar() {
+  setHeader() {
     if(this.state.clippings.length > 0) {
       return (
-        <DebounceInput
-          className="u-full-width SearchField"
-          debounceTimeout={300}
-          minLength={2}
-          onChange={filterText => this.setState({filterText})}
-          placeholder="Search..."
-        />
+        <div className="Header">
+          <div className="container">
+            <div className="three columns">
+              <a className="Header--top-links" href="#random">Random</a>
+              <a className="Header--top-links" href="#browse">Browse</a>
+            </div>
+            <div className="nine columns">
+              <div className="InputBar">
+                <img className="InputBar--search-icon" src="assets/search-icon.svg"/>
+                <DebounceInput
+                  className="u-full-width SearchField"
+                  debounceTimeout={300}
+                  minLength={2}
+                  onChange={filterText => this.setState({filterText})}
+                  placeholder="Search..."
+                />
+              </div>
+            </div>
+          </div>
+        </div>
       );
     }
   }
@@ -62,20 +76,19 @@ class Main extends React.Component {
           />
         );
       }
+    } else {
+      return(
+        <LoadingIndicator 
+          className="main-loader"
+        />
+      );
     }
   }
 
   render() {
     return (
-      <div className="Main">
-        <div className="Header row">
-          <div className="three columns">
-            <button>Browse</button>
-          </div>
-          <div className="nine columns">
-            {this.setInputBar()}
-          </div>
-        </div>
+      <div>
+        {this.setHeader()}
         {this.setMainContent()}
       </div>
     );

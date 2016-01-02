@@ -10,33 +10,12 @@ body {
   background: #D9DAD7; 
   color: #1A2639;
   font-family: "Arvo", serif;
+  margin: 0;
 }
 
-.Header {
-  margin-left: auto;
-  margin-right: auto;
+.container {
   max-width: 1024px;
 }
-
-.ClipList {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1024px;
-}
-
-input.SearchField, input.SearchField:focus {
-  max-width: 768px; 
-  font-size: 16px;
-  border: none;
-  border-bottom: 1px solid #bbb;
-  border-radius: 0;
-  background-color: inherit;
-}
-
-input.SearchField:focus {
-  color: #C24D2C;
-}
-
 
 .Clip {
   border-left: 4px solid rgba(62, 74, 97, 0.2);
@@ -47,29 +26,88 @@ input.SearchField:focus {
 .Clip--title {
   color: #C24D2C;
   font-size: 10px;
-  text-align: left;
+  list-style: none;
+  margin: 0;
+  padding: 3px 0;
+}
+
+.Clip--title-active {
+  list-style: disc;
+  font-weight: bold;
 }
 
 .Clip--count {
   color: #1A2639;
 }
 
-.RandomClip {
+.ClipList {
+  margin-top: 20px;
+}
+
+.Header {
+  background: #FEFEFE;
+  border-bottom: 3px solid #bbb;
   margin-left: auto;
   margin-right: auto;
-  max-width: 768px;
-  padding: 10em 0;
+  padding: 6px 0;
+}
+
+.Header--top-links {
+  color: #555;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 38px;
+  letter-spacing: .1rem;
+  padding: 0 5px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.Header--top-links:hover,
+.Header--top-links:active {
+  text-decoration: underline;
+}
+
+.InputBar {
+  position: relative;
+}
+
+.InputBar--search-icon {
+  margin-top: 7px;
+  position: relative;
+}
+
+input.SearchField {
+  padding-left: 3px;
+  position: absolute;
+}
+
+input.SearchField, 
+input.SearchField:focus {
+  max-width: 768px; 
+  font-size: 16px;
+  border: none;
+  border-radius: 0;
+  background-color: inherit;
+  outline: none;
+}
+
+input.SearchField:focus {
+  color: #C24D2C;
+}
+
+.main-loader {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5em;
+}
+
+.RandomClip {
+  margin: 2em auto 0 auto;
 }
 
 .RandomClip p {
   font-size: 32px;
-  /*background-color: rgba(249, 255, 0, 0.25);*/
 }
 
-.todo--next {
-  color: #BCBCBC;
-}
-
-.todo--done {
-  color: #39AA51;
-}
