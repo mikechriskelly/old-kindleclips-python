@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import AppRoot from './components/AppRoot';
 import Main from './components/Main';
 import Setup from './components/Setup';
+import Browse from './components/Browse';
+import RandomClip from './components/RandomClip';
 
 import { Router, Route, IndexRoute } from 'react-router';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
@@ -20,7 +22,11 @@ ReactDOM.render((
     <Route path='/' component={AppRoot}>
       <IndexRoute component={Setup} step='1' />
       <Route path='setup' component={Setup} step='2' />
-      <Route path='clips' component={Main} />
+      <Route path='clips' component={Main}>
+        <IndexRoute component={RandomClip} />
+        <Route path='browse' component={Browse} />
+        <Route path='random' component={RandomClip} />
+      </Route>
     </Route>
   </Router>
 ), document.getElementById('App'));

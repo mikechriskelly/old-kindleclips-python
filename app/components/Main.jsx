@@ -1,10 +1,7 @@
 import React from 'react';
-import ClipList from './ClipList';
-import RandomClip from './RandomClip';
-import DebounceInput from 'react-debounce-input';
 import ClippingsActions from '../actions/ClippingsActions';
 import ClippingsStore from '../stores/ClippingsStore';
-import LoadingIndicator from 'react-loading-indicator';
+import SearchBar from './SearchBar';
 
 class Main extends React.Component {
 
@@ -27,69 +24,31 @@ class Main extends React.Component {
     this.setState(state);
   }
 
-  handleUserInput(filterText) {
-    this.setState({
-      filterText: filterText
+  render() {
+    var childrenWithProps = React.Children.map(this.props.children, child => {
+      return React.cloneElement(child, { 
+        clippings: this.state.clippings,
+        filterText: this.state.filterText 
+      });
     });
-  }
 
-  setHeader() {
-    if(this.state.clippings.length > 0) {
-      return (
+    return (
+      <div>
         <div className="Header">
           <div className="container">
             <div className="three columns">
-              <a className="Header--top-links" href="#random">Random</a>
-              <a className="Header--top-links" href="#browse">Browse</a>
+              <a className="Header--top-links" href="/clips/random">Random</a>
+              <a className="Header--top-links" href="/clips/browse">Browse</a>
             </div>
             <div className="nine columns">
-              <div className="InputBar">
-                <img className="InputBar--search-icon" src="assets/search-icon.svg"/>
-                <DebounceInput
-                  className="u-full-width SearchField"
-                  debounceTimeout={300}
-                  minLength={2}
-                  onChange={filterText => this.setState({filterText})}
-                  placeholder="Search..."
-                />
-              </div>
+              <SearchBar 
+                filterText={this.state.filterText}
+                onChange={this.onChange}
+              />
             </div>
           </div>
         </div>
-      );
-    }
-  }
-
-  setMainContent() {
-    if(this.state.clippings.length > 0) {
-      if(this.state.filterText.length > 0) {
-        return (
-          <ClipList 
-            clippings={this.state.clippings}
-            filterText={this.state.filterText}
-          />
-        );
-      } else {
-        return (
-          <RandomClip
-            clippings={this.state.clippings}
-          />
-        );
-      }
-    } else {
-      return(
-        <LoadingIndicator 
-          className="main-loader"
-        />
-      );
-    }
-  }
-
-  render() {
-    return (
-      <div>
-        {this.setHeader()}
-        {this.setMainContent()}
+        {childrenWithProps}
       </div>
     );
   }

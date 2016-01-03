@@ -23,7 +23,7 @@ class Setup extends React.Component {
 
   render() {
     return (
-      <div className="Main">
+      <div className="Main container">
         <div>
           <h4>Setup Kindle Clippings Viewer</h4>
           {this.setContent()}

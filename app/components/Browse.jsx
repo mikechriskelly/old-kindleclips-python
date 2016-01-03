@@ -1,16 +1,16 @@
 import React from 'react';
-import Clip from './Clip';
+import ClipList from './ClipList';
 import LoadingIndicator from 'react-loading-indicator';
 
-class RandomClip extends React.Component {
+class Main extends React.Component {
+
   setMainContent() {
     if(this.props.clippings.length > 0) {
-      const clip = this.props.clippings[Math.floor(Math.random() * this.props.clippings.length)];
       return (
-        <div className="RandomClip container">
-          <p>{clip.text}</p>
-          <div className="Clip--title">{clip.title}</div>
-        </div>
+        <ClipList 
+          clippings={this.props.clippings}
+          filterText={this.props.filterText}
+        />
       );
     } else {
       return(
@@ -20,6 +20,7 @@ class RandomClip extends React.Component {
       );
     }
   }
+
   render() {
     return (
       <div>
@@ -29,4 +30,4 @@ class RandomClip extends React.Component {
   }
 }
 
-export default RandomClip;
+export default Main;

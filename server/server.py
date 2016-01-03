@@ -69,8 +69,10 @@ class Root:
 
     return open(os.path.join(BUILD_DIR, u'index.html'))
 
+@cherrypy.popargs('clientroute')
+class Clips:
   @cherrypy.expose
-  def clips(self):
+  def index(self, clientroute=''):
     sess = cherrypy.session
     if not sess.has_key('access_token'):
       raise cherrypy.HTTPRedirect('/')
@@ -121,6 +123,7 @@ class API:
 
 def main():
   root = Root()
+  root.clips = Clips()
   root.api = API()
 
   conf = {
