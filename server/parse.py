@@ -7,7 +7,7 @@ def parse_clips(my_clippings):
 	mc = my_clippings.split("==========")
 
 	# convert each clip into a dictionary with text, title and author keys
-	for clip in mc:
+	for index, clip in enumerate(mc):
 		dictionary = {}
 		clip_array = clip.strip().splitlines()
 		try:
@@ -16,6 +16,7 @@ def parse_clips(my_clippings):
 			dictionary['author'] = clip_array[0].rstrip("*")[clip_array[0].rfind("(")+1:-1]
 			dictionary['title'] = clip_array[0].lstrip("*")[0:clip_array[0].find("(")-1]
 			dictionary['text'] = clip_array[3]
+			dictionary['id'] = index
 			clip_lst.append(dictionary) 
 		except:
 			continue

@@ -39,7 +39,7 @@ class ClipList extends React.Component {
         }
       }
       
-      rows.push(<Clip clip={clip}/>);
+      rows.push(<Clip key={clip.id} clip={clip}/>);
 
       if(titles.hasOwnProperty(clip.title)) {
         titles[clip.title] += 1;
