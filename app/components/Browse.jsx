@@ -5,19 +5,15 @@ import LoadingIndicator from 'react-loading-indicator';
 class Main extends React.Component {
 
   setMainContent() {
-    if(this.props.clippings.length > 0) {
+    if(this.props.clips.length > 0) {
       return (
         <ClipList 
-          clippings={this.props.clippings}
+          clips={this.props.clips}
           filterText={this.props.filterText}
         />
       );
     } else {
-      return(
-        <LoadingIndicator 
-          className="main-loader"
-        />
-      );
+      return(<LoadingIndicator className="main-loader"/>);
     }
   }
 

@@ -24,43 +24,20 @@ class ClipList extends React.Component {
   }
 
   render() {
-
-    let rows = [];
-    let titles = {};
-    const filterWords = this.props.filterText.toLowerCase().split(' ');
-
-    this.props.clippings.forEach(function(clip) {
-      let text = clip.text.toLowerCase();
-      let title = clip.title.toLowerCase();
-
-      for(let i = 0; i < filterWords.length; i++) {
-        if(text.indexOf(filterWords[i]) === -1 && title.indexOf(filterWords[i]) === -1) {
-          return;
-        }
-      }
-      
-      rows.push(<Clip key={clip.id} clip={clip}/>);
-
-      if(titles.hasOwnProperty(clip.title)) {
-        titles[clip.title] += 1;
-      } else {
-        titles[clip.title] = 1;
-      }
-    });
+    const clips = this.props.clips;
+    const titles = this.props.titles;
+    console.log(Object.keys(titles))
 
     return (
       <div className="ClipList container">
         <div className="three columns">
           <p>Titles</p>
           <ul>
-            <li className="Clip--title Clip--title-active">All Results <span className="Clip--count">({rows.length})</span></li>
-            {Object.keys(titles).map(key => {
-              return <li className="Clip--title">{this.truncateOnWord(key, 35)} <span className="Clip--count">({titles[key]})</span></li>;
-            })}
+            <li className="Clip--title Clip--title-active">All Results 
+            </li>
           </ul>
         </div>
         <div className="nine columns">
-          {rows}
         </div>
       </div>
     );

@@ -45,6 +45,7 @@
   "devDependencies": {
     "copy-webpack-plugin": "^0.3.3",
     "eslint": "^1.5.0",
+    "eslint-plugin-react": "^3.14.0",
     "fbjs": "^0.2.1",
     "nodemon": "^1.7.1",
     "react-hot-loader": "^1.2.7",

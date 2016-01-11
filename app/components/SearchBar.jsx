@@ -5,7 +5,7 @@ import DebounceInput from 'react-debounce-input';
 class SearchBar extends React.Component {
 
   handleUserInput(filterText) {
-    this.props.onChange({'filterText': filterText});
+    this.props.onFilterChange(filterText);
     
     if(filterText.length == 0) {
       this.context.history.pushState(null, '/clips/random');
@@ -34,6 +34,6 @@ class SearchBar extends React.Component {
 SearchBar.contextTypes = {
   location: React.PropTypes.object,
   history: React.PropTypes.object
-}
+};
 
 export default SearchBar;

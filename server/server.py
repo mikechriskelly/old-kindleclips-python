@@ -11,7 +11,6 @@ MY_CLIPPINGS = '/My Clippings.txt'
 
 class Root:
   def get_dropbox_auth_flow(self):
-
     if os.environ.get('PORT'):
       # Use HTTPS redirect URL in production
       base = 'https://kindleclips.herokuapp.com'

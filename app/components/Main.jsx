@@ -21,13 +21,22 @@ class Main extends React.Component {
   }
 
   onChange(state) {
+    console.log(state);
     this.setState(state);
+  }
+
+  onFilterChange(filterText) {
+    ClippingsActions.filterClips(filterText);
+    this.replaceState({
+      filterText: filterText
+    });
   }
 
   render() {
     var childrenWithProps = React.Children.map(this.props.children, child => {
       return React.cloneElement(child, { 
-        clippings: this.state.clippings,
+        clips: this.state.clips,
+        titles: this.state.titles,
         filterText: this.state.filterText 
       });
     });
@@ -43,7 +52,7 @@ class Main extends React.Component {
             <div className="nine columns">
               <SearchBar 
                 filterText={this.state.filterText}
-                onChange={this.onChange}
+                onFilterChange={this.onFilterChange}
               />
             </div>
           </div>

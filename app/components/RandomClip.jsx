@@ -1,11 +1,10 @@
 import React from 'react';
-import Clip from './Clip';
 import LoadingIndicator from 'react-loading-indicator';
 
 class RandomClip extends React.Component {
   setMainContent() {
-    if(this.props.clippings.length > 0) {
-      const clip = this.props.clippings[Math.floor(Math.random() * this.props.clippings.length)];
+    if(this.props.clips.length > 0) {
+      const clip = this.props.clips[Math.floor(Math.random() * this.props.clips.length)];
       return (
         <div className="RandomClip container">
           <p>{clip.text}</p>
